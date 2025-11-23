@@ -1,4 +1,3 @@
-<!-- NAVBAR PRINCIPAL -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
   <div class="container">
 
@@ -7,40 +6,77 @@
       <span class="text-primary">Colecta</span>Go
     </a>
 
-    <!-- Botón de menú móvil -->
-    <button 
-      class="navbar-toggler" 
-      type="button" 
-      data-bs-toggle="collapse" 
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
       data-bs-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Items -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-        <!-- Inicio -->
         <li class="nav-item">
-          <a class="nav-link" routerLink="/">Inicio</a>
+          <a class="nav-link" routerLink="">Inicio</a>
         </li>
 
-        <!-- Campañas -->
         <li class="nav-item">
           <a class="nav-link" routerLink="/campaigns">Campañas</a>
         </li>
 
-        <!-- Login -->
-        <li class="nav-item">
-          <a class="btn btn-outline-primary ms-2" routerLink="/authentication">
-            Iniciar sesión
+        <!-- Solo crowdfounder -->
+        <li class="nav-item" *ngIf="role === 'crowdfounder'">
+          <a class="nav-link" routerLink="/campaigns/newCampaign">
+            Crear campaña
           </a>
         </li>
-      </ul>
-    </div>
 
+        <!-- Solo admin -->
+        <li class="nav-item" *ngIf="role === 'administrador'">
+          <a class="nav-link" routerLink="/admin">
+            Panel administrador
+          </a>
+        </li>
+
+      </ul>
+
+      <!-- Zona derecha -->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+        <!-- Si NO está logueado -->
+        <ng-container *ngIf="!isLoggedIn; else loggedBlock">
+          <li class="nav-item me-2">
+            <a class="btn btn-outline-primary btn-sm" routerLink="/login">
+              Iniciar sesión
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-primary btn-sm" routerLink="/signup">
+              Registrarse
+            </a>
+          </li>
+        </ng-container>
+
+        <!-- Si está logueado -->
+        <ng-template #loggedBlock>
+          <li class="nav-item d-flex align-items-center me-2">
+            <span class="text-muted small">
+              Hola, <strong>{{ userName }}</strong>
+              <span *ngIf="role"> ({{ role }})</span>
+            </span>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-secondary btn-sm" (click)="onLogout()">
+              Cerrar sesión
+            </button>
+          </li>
+        </ng-template>
+
+      </ul>
+
+    </div>
   </div>
 </nav>
 
-<!-- Separación para que el contenido no quede debajo del navbar -->
 <div style="height: 75px;"></div>

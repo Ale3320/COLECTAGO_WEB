@@ -72,12 +72,34 @@
             <button class="btn btn-outline-secondary btn-sm" routerLink="/campaigns">
               ← Volver a campañas
             </button>
-            <button
-              class="btn btn-primary btn-sm"
-              routerLink="/authentication"
-              [queryParams]="{ fromCampaign: campaign._id }">
-              Invertir en esta campaña
-            </button>
+            <!-- Si no está logueado: botón que lo manda a login -->
+            <ng-container *ngIf="!isLoggedIn; else loggedInvestBlock">
+              <button
+                class="btn btn-primary btn-sm"
+                routerLink="/login"
+                [queryParams]="{ fromCampaign: campaign._id }">
+                Inicia sesión para invertir
+              </button>
+            </ng-container>
+
+            <!-- Si está logueado -->
+            <ng-template #loggedInvestBlock>
+
+              <!-- Si es inversionista: puede invertir -->
+              <button
+                *ngIf="role === 'inversionista'; else notInvestorBlock"
+                class="btn btn-primary btn-sm">
+                Invertir en esta campaña
+              </button>
+
+              <!-- Si está logueado pero NO es inversionista -->
+              <ng-template #notInvestorBlock>
+                <button class="btn btn-secondary btn-sm" disabled>
+                  Solo los inversionistas pueden invertir
+                </button>
+              </ng-template>
+
+            </ng-template>
           </div>
 
         </div>

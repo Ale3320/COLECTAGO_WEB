@@ -14,12 +14,12 @@ export class Authentication {
 
   constructor(private httpClient: HttpClient) { }
 
-  register(user: User): Observable<Jwtres> {
+  signup(user: User): Observable<Jwtres> {
     return this.httpClient.post<Jwtres>(this.apiUri + '/signup', user);
   }
 
-  login(user: User): Observable<Jwtres> {
-    return this.httpClient.post<Jwtres>(this.apiUri + '/login', user).pipe(
+  login(credentials: { mail: string; password: string }): Observable<Jwtres> {
+    return this.httpClient.post<Jwtres>(this.apiUri + '/login', credentials).pipe(
       tap((res: Jwtres) => {
           if (!res) {
             console.error('Respuesta vacía del servidor');
