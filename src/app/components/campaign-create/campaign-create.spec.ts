@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Logout } from './logout';
+import { CampaignCreate } from './campaign-create';
 
-describe('Logout', () => {
-  let component: Logout;
-  let fixture: ComponentFixture<Logout>;
+describe('CampaignCreate', () => {
+  let component: CampaignCreate;
+  let fixture: ComponentFixture<CampaignCreate>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Logout]
+      imports: [CampaignCreate]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Logout);
+    fixture = TestBed.createComponent(CampaignCreate);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

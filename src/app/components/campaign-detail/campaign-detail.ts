@@ -60,6 +60,6 @@ export class CampaignDetailComponent implements OnInit {
   // URL del PDF
   getPdfUrl(): string | null {
     if (!this.campaign?._id) return null;
-    return `http://localhost:3000/api/campaign/seePDFCampaign/${this.campaign._id}/pdf`;
+    return `http://localhost:3000/api/campaigns/seePDFCampaign/${this.campaign._id}/pdf`;
   }
 }

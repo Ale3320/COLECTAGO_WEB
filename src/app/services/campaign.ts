@@ -31,7 +31,7 @@ export class CampaignService {
   }
 
   // POST /api/newCampaign
-  create(formData: FormData) {
+  create(formData: FormData): Observable<any> {
     return this.http.post(`${this.apiUri}/newCampaign`, formData);
   }
 

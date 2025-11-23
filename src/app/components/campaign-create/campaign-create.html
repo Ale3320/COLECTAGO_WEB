@@ -1,0 +1,132 @@
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+
+          <h3 class="card-title mb-3">Crear nueva campaña</h3>
+          <p class="text-muted mb-4">
+            Completa la información de la campaña y adjunta el acta de constitución en PDF.
+          </p>
+
+          <!-- Mensaje de éxito -->
+          <div *ngIf="success" class="alert alert-success py-2">
+            {{ success }}
+          </div>
+
+          <!-- Mensaje de error -->
+          <div *ngIf="error" class="alert alert-danger py-2">
+            {{ error }}
+          </div>
+
+          <form [formGroup]="campaignForm" (ngSubmit)="onSubmit()">
+
+            <!-- Nombre campaña -->
+            <div class="mb-3">
+              <label for="campaignName" class="form-label">Nombre de la campaña</label>
+              <input
+                type="text"
+                id="campaignName"
+                class="form-control"
+                formControlName="campaignName"
+                [class.is-invalid]="campaignName?.invalid && (campaignName?.touched || campaignName?.dirty)">
+
+              <div class="invalid-feedback" *ngIf="campaignName?.errors?.['required']">
+                El nombre de la campaña es obligatorio.
+              </div>
+              <div class="invalid-feedback" *ngIf="campaignName?.errors?.['minlength']">
+                Debe tener al menos 3 caracteres.
+              </div>
+            </div>
+
+            <!-- NIT -->
+            <div class="mb-3">
+              <label for="NIT" class="form-label">NIT de la empresa</label>
+              <input
+                type="text"
+                id="NIT"
+                class="form-control"
+                formControlName="NIT"
+                [class.is-invalid]="NITCtrl?.invalid && (NITCtrl?.touched || NITCtrl?.dirty)">
+
+              <div class="invalid-feedback" *ngIf="NITCtrl?.errors?.['required']">
+                El NIT es obligatorio.
+              </div>
+            </div>
+
+            <!-- Objetivos -->
+            <div class="mb-3">
+              <label for="campaignObjectives" class="form-label">Objetivos de la campaña</label>
+              <textarea
+                id="campaignObjectives"
+                rows="3"
+                class="form-control"
+                formControlName="campaignObjectives"
+                [class.is-invalid]="campaignObjectives?.invalid && (campaignObjectives?.touched || campaignObjectives?.dirty)"></textarea>
+
+              <div class="invalid-feedback" *ngIf="campaignObjectives?.errors?.['required']">
+                Los objetivos son obligatorios.
+              </div>
+              <div class="invalid-feedback" *ngIf="campaignObjectives?.errors?.['minlength']">
+                Describe un poco más los objetivos.
+              </div>
+            </div>
+
+            <!-- Producto / servicio -->
+            <div class="mb-3">
+              <label for="serviceOrProduct" class="form-label">Producto o servicio</label>
+              <textarea
+                id="serviceOrProduct"
+                rows="2"
+                class="form-control"
+                formControlName="serviceOrProduct"
+                [class.is-invalid]="serviceOrProduct?.invalid && (serviceOrProduct?.touched || serviceOrProduct?.dirty)"></textarea>
+
+              <div class="invalid-feedback" *ngIf="serviceOrProduct?.errors?.['required']">
+                Este campo es obligatorio.
+              </div>
+              <div class="invalid-feedback" *ngIf="serviceOrProduct?.errors?.['minlength']">
+                Agrega un poco más de detalle.
+              </div>
+            </div>
+
+            <!-- PDF -->
+            <div class="mb-3">
+              <label for="pdf" class="form-label">Acta de constitución (PDF)</label>
+              <input
+                type="file"
+                id="pdf"
+                class="form-control"
+                (change)="onFileSelected($event)"
+                accept="application/pdf">
+
+              <div class="form-text">
+                Tamaño máximo 10 MB. Solo se acepta formato PDF.
+              </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="d-flex justify-content-between mt-4">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                [routerLink]="['/campaign']">
+                Cancelar
+              </button>
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="loading">
+                <span *ngIf="!loading">Crear campaña</span>
+                <span *ngIf="loading">Creando campaña...</span>
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
