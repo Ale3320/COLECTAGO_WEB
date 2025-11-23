@@ -1,0 +1,96 @@
+<div class="container my-4" *ngIf="!loading">
+
+  <!-- Mensajes de error -->
+  <div *ngIf="error" class="alert alert-danger text-center">
+    {{ error }}
+  </div>
+
+  <!-- Detalle de campaña -->
+  <div *ngIf="!error && campaign" class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+
+      <div class="card shadow-sm">
+        <div class="card-body">
+
+          <!-- Título y NIT -->
+          <h3 class="card-title mb-1">
+            {{ campaign.campaignName }}
+          </h3>
+          <h6 class="card-subtitle text-muted mb-3">
+            NIT: {{ campaign.NIT }}
+          </h6>
+
+          <!-- Objetivos -->
+          <div class="mb-3">
+            <h5 class="fw-semibold mb-1">Objetivos de la campaña</h5>
+            <p class="text-muted mb-0">
+              {{ campaign.campaignObjectives }}
+            </p>
+          </div>
+
+          <!-- Producto / servicio -->
+          <div class="mb-3">
+            <h5 class="fw-semibold mb-1">Producto o servicio</h5>
+            <p class="text-muted mb-0">
+              {{ campaign.serviceOrProduct }}
+            </p>
+          </div>
+
+          <!-- Recaudación y estado -->
+          <div class="row mb-3">
+            <div class="col-md-6 mb-2">
+              <h6 class="text-muted mb-1">Monto recaudado</h6>
+              <p class="fw-semibold mb-0">
+                {{ campaign.collected | currency:'COP':'symbol':'1.0-0' }}
+              </p>
+            </div>
+            <div class="col-md-6 mb-2 text-md-end">
+              <h6 class="text-muted mb-1">Estado</h6>
+              <span
+                class="badge px-3 py-2 text-uppercase"
+                [ngClass]="{
+                  'bg-success': campaign.activeOrInactive === 'activo',
+                  'bg-secondary': campaign.activeOrInactive === 'inactivo'
+                }">
+                {{ campaign.activeOrInactive }}
+              </span>
+            </div>
+          </div>
+
+          <!-- PDF del acta de constitución -->
+          <div class="mb-3">
+            <h6 class="text-muted mb-1">Documento de constitución</h6>
+            <p class="text-muted small mb-0">
+              El acta de constitución (PDF) solo puede ser consultada por administradores desde el módulo de administración.
+            </p>
+          </div>
+
+          <hr>
+
+          <!-- Acciones -->
+          <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-outline-secondary btn-sm" routerLink="/campaigns">
+              ← Volver a campañas
+            </button>
+            <button
+              class="btn btn-primary btn-sm"
+              routerLink="/authentication"
+              [queryParams]="{ fromCampaign: campaign._id }">
+              Invertir en esta campaña
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Loading -->
+<div *ngIf="loading" class="container my-4">
+  <div class="alert alert-info text-center">
+    Cargando información de la campaña...
+  </div>
+</div>

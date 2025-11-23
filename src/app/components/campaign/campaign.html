@@ -1,0 +1,98 @@
+<!-- src/app/components/campaign/campaign.html -->
+
+<div class="container my-4">
+
+  <!-- Título -->
+  <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+    <div>
+      <h2 class="mb-0">Campañas</h2>
+      <p class="text-muted mb-0">
+        Explora las campañas activas de la plataforma de crowdfunding.
+      </p>
+    </div>
+
+    <!-- Aquí después podrías poner un botón de "Crear campaña" para crowdfounder -->
+    <!-- <button class="btn btn-primary btn-sm">Nueva campaña</button> -->
+  </div>
+
+  <!-- Estados -->
+  <div *ngIf="loading" class="alert alert-info text-center">
+    Cargando campañas...
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger text-center">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && !error && campaigns.length === 0" class="alert alert-secondary text-center">
+    Por ahora no hay campañas registradas.
+  </div>
+
+  <!-- Grid de campañas -->
+  <div class="row g-4" *ngIf="!loading && !error && campaigns.length > 0">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let c of campaigns">
+      <div class="card h-100 shadow-sm campaign-card">
+
+        <div class="card-body d-flex flex-column">
+
+          <!-- Nombre y NIT -->
+          <h5 class="card-title mb-1">
+            {{ c.campaignName }}
+          </h5>
+          <h6 class="card-subtitle text-muted mb-2">
+            NIT: {{ c.NIT }}
+          </h6>
+
+          <!-- Objetivos / descripción -->
+          <p class="card-text small text-muted flex-grow-1">
+            {{ c.campaignObjectives }}
+          </p>
+
+          <!-- Progreso de recaudación (solo visual, por ahora usamos collected) -->
+          <div class="mb-2">
+            <div class="d-flex justify-content-between small mb-1">
+              <span class="text-muted">Recaudado</span>
+              <strong>
+                {{ c.collected | currency:'COP':'symbol':'1.0-0' }}
+              </strong>
+            </div>
+
+            <div class="progress" style="height: 6px;">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                [style.width.%]="getProgress(c)"
+                aria-valuemin="0"
+                aria-valuemax="100">
+              </div>
+            </div>
+
+            <div class="text-end small text-muted mt-1">
+              {{ getProgress(c) | number:'1.0-0' }}% estimado
+            </div>
+          </div>
+
+          <!-- Estado + botón -->
+          <div class="d-flex justify-content-between align-items-center mt-2 pt-2 border-top">
+            <span
+              class="badge text-uppercase"
+              [ngClass]="{
+                'bg-success': c.activeOrInactive === 'activo',
+                'bg-secondary': c.activeOrInactive === 'inactivo'
+              }">
+              {{ c.activeOrInactive }}
+            </span>
+
+            <a
+              [routerLink]="['/campaign', c._id]"
+              class="btn btn-sm btn-primary">
+              Ver detalles
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

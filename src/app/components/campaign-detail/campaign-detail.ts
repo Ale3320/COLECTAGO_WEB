@@ -1,0 +1,56 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { CampaignService } from '../../services/campaign';
+import { Campaign } from '../../models/campaign';
+
+@Component({
+  selector: 'app-campaign-detail',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  templateUrl: './campaign-detail.html',
+  styleUrl: './campaign-detail.css'
+})
+export class CampaignDetailComponent implements OnInit {
+
+  campaign: Campaign | null = null;
+  loading = true;
+  error: string | null = null;
+
+  constructor(
+    private route: ActivatedRoute,
+    private campaignService: CampaignService
+  ) {}
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (!id) {
+      this.error = 'No se proporcionó un ID de campaña válido.';
+      this.loading = false;
+      return;
+    }
+
+    this.campaignService.getById(id).subscribe({
+      next: (c) => {
+        if (!c) {
+          this.error = 'No se encontró la campaña.';
+        } else {
+          this.campaign = c;
+        }
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.error = 'Ocurrió un error al cargar la campaña.';
+        this.loading = false;
+      }
+    });
+  }
+
+  // URL del PDF (usa la ruta de tu API)
+  getPdfUrl(): string | null {
+    if (!this.campaign?._id) return null;
+    return `http://localhost:3000/api/campaign/seePDFCampaign/${this.campaign._id}/pdf`;
+  }
+}

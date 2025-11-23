@@ -1,0 +1,18 @@
+.home-hero {
+  background: linear-gradient(to right, #f3f7ff, #ffffff);
+  border-bottom: 1px solid #e3e6ee;
+}
+
+.feature-box {
+  background: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0.75rem 1.25rem rgba(0, 0, 0, 0.08);
+}
+
+footer {
+  border-top: 1px solid #e5e5e5;
+}
