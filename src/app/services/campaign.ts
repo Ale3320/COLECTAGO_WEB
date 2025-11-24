@@ -14,7 +14,7 @@ export class CampaignService {
 
   constructor(private http: HttpClient) {}
 
-  // GET /api/seeCampaigns
+  // GET /api/campaigns/seeCampaigns
   getAll(): Observable<Campaign[]> {
     return this.http
       .get<{ ok: boolean; total: number; campaigns: Campaign[] }>(
@@ -30,26 +30,26 @@ export class CampaignService {
     );
   }
 
-  // POST /api/newCampaign
+  // POST /api/campaigns/newCampaign
   create(formData: FormData): Observable<any> {
     return this.http.post(`${this.apiUri}/newCampaign`, formData);
   }
 
-  // DELETE /api/campaigns/:id?adminId=...
-  delete(id: string, adminId: string) {
-    return this.http.delete(`${this.apiUri}/campaigns/${id}`, {
+  // DELETE /api/campaigns/deleteCampaign/:id?adminId=...
+  delete(id: string, adminId: string): Observable<any> {
+    return this.http.delete(`${this.apiUri}/deleteCampaign/${id}`, {
       params: { adminId }
     });
   }
 
-  // PUT /api/updateCampaign/:id?adminId=...
+  // PUT /api/campaigns/updateCampaign/:id?adminId=...
   update(id: string, formData: FormData, adminId: string) {
     return this.http.put(`${this.apiUri}/updateCampaign/${id}`, formData, {
       params: { adminId }
     });
   }
 
-  // GET /api/seePDFCampaign/:id/pdf
+  // GET /api/campaigns/seePDFCampaign/:id/pdf
   getPdf(id: string) {
     return this.http.get(`${this.apiUri}/seePDFCampaign/${id}/pdf`, {
       responseType: 'blob'

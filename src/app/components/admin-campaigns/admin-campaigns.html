@@ -1,0 +1,61 @@
+<div class="container my-4">
+  <h2 class="mb-3">Panel Administrador</h2>
+
+  <div *ngIf="loading">Cargando campañas...</div>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <div *ngIf="success" class="alert alert-success">{{ success }}</div>
+
+  <table class="table table-bordered" *ngIf="!loading && campaigns.length">
+    <thead class="table-light">
+      <tr>
+        <th>Nombre</th>
+        <th>NIT</th>
+        <th>Estado</th>
+        <th>Owner</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let c of campaigns">
+        <td>{{ c.campaignName }}</td>
+        <td>{{ c.NIT }}</td>
+        <td>
+          <span class="badge bg-secondary" *ngIf="c.activeOrInactive === 'inactivo'">
+            Inactivo
+          </span>
+          <span class="badge bg-success" *ngIf="c.activeOrInactive === 'activo'"> Activo </span>
+        </td>
+        <td>{{ c.owner?.userName }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-outline-secondary btn-sm me-2"
+            (click)="openPdf(c._id)"
+          >
+            Ver PDF
+          </button>
+
+          <a class="btn btn-warning btn-sm me-2" [routerLink]="['/admin/campaign', c._id]">
+            Editar
+          </a>
+
+          <button
+            class="btn btn-success btn-sm me-2"
+            *ngIf="c.activeOrInactive === 'inactivo'"
+            (click)="approve(c._id)"
+          >
+            Aprobar rápido
+          </button>
+
+          <button class="btn btn-danger btn-sm" (click)="delete(c._id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && campaigns.length === 0" class="text-muted">
+    No hay campañas registradas.
+  </div>
+</div>

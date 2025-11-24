@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Register } from './register';
+import { AdminCampaignEdit } from './admin-campaign-edit';
 
-describe('Register', () => {
-  let component: Register;
-  let fixture: ComponentFixture<Register>;
+describe('AdminCampaignEdit', () => {
+  let component: AdminCampaignEdit;
+  let fixture: ComponentFixture<AdminCampaignEdit>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Register]
+      imports: [AdminCampaignEdit]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Register);
+    fixture = TestBed.createComponent(AdminCampaignEdit);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

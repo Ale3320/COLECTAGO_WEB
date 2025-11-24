@@ -1,5 +1,4 @@
 <div class="container my-4" *ngIf="!loading">
-
   <!-- Mensajes de error -->
   <div *ngIf="error" class="alert alert-danger text-center">
     {{ error }}
@@ -8,17 +7,13 @@
   <!-- Detalle de campaña -->
   <div *ngIf="!error && campaign" class="row justify-content-center">
     <div class="col-12 col-lg-8">
-
       <div class="card shadow-sm">
         <div class="card-body">
-
           <!-- Título y NIT -->
           <h3 class="card-title mb-1">
             {{ campaign.campaignName }}
           </h3>
-          <h6 class="card-subtitle text-muted mb-3">
-            NIT: {{ campaign.NIT }}
-          </h6>
+          <h6 class="card-subtitle text-muted mb-3">NIT: {{ campaign.NIT }}</h6>
 
           <!-- Objetivos -->
           <div class="mb-3">
@@ -41,7 +36,7 @@
             <div class="col-md-6 mb-2">
               <h6 class="text-muted mb-1">Monto recaudado</h6>
               <p class="fw-semibold mb-0">
-                {{ campaign.collected | currency:'COP':'symbol':'1.0-0' }}
+                {{ campaign.collected | currency : 'COP' : 'symbol' : '1.0-0' }}
               </p>
             </div>
             <div class="col-md-6 mb-2 text-md-end">
@@ -51,7 +46,8 @@
                 [ngClass]="{
                   'bg-success': campaign.activeOrInactive === 'activo',
                   'bg-secondary': campaign.activeOrInactive === 'inactivo'
-                }">
+                }"
+              >
                 {{ campaign.activeOrInactive }}
               </span>
             </div>
@@ -59,13 +55,27 @@
 
           <!-- PDF del acta de constitución -->
           <div class="mb-3">
-            <h6 class="text-muted mb-1">Documento de constitución</h6>
-            <p class="text-muted small mb-0">
-              El acta de constitución (PDF) solo puede ser consultada por administradores desde el módulo de administración.
+            <h6 class="text-muted mb-2">Documento de constitución</h6>
+
+            <!-- Si es ADMIN, mostrar botón real -->
+            <a
+              *ngIf="canSeePdf && getPdfUrl()"
+              class="btn btn-outline-secondary btn-sm"
+              [href]="getPdfUrl()"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ver acta de constitución (PDF)
+            </a>
+
+            <!-- Si NO es admin, mostrar mensaje fijo -->
+            <p *ngIf="!canSeePdf" class="text-muted small mb-0">
+              El acta de constitución (PDF) solo puede ser consultada por administradores desde el
+              módulo de administración.
             </p>
           </div>
 
-          <hr>
+          <hr />
 
           <!-- Acciones -->
           <div class="d-flex justify-content-between align-items-center">
@@ -77,42 +87,44 @@
               <button
                 class="btn btn-primary btn-sm"
                 routerLink="/login"
-                [queryParams]="{ fromCampaign: campaign._id }">
+                [queryParams]="{ fromCampaign: campaign._id }"
+              >
                 Inicia sesión para invertir
               </button>
             </ng-container>
 
             <!-- Si está logueado -->
             <ng-template #loggedInvestBlock>
-
-              <!-- Si es inversionista: puede invertir -->
-              <button
-                *ngIf="role === 'inversionista'; else notInvestorBlock"
-                class="btn btn-primary btn-sm">
+              <!-- Caso 1: puede invertir (inversionista y con campaña activa) -->
+              <button *ngIf="canInvest; else cannotInvestBlock" class="btn btn-primary btn-sm">
                 Invertir en esta campaña
               </button>
 
-              <!-- Si está logueado pero NO es inversionista -->
-              <ng-template #notInvestorBlock>
-                <button class="btn btn-secondary btn-sm" disabled>
+              <!-- Caso 2 y 3: no puede invertir, pero por razones distintas -->
+              <ng-template #cannotInvestBlock>
+                <!-- Caso 2: está logueado pero NO es inversionista -->
+                <button *ngIf="!isInvestor" class="btn btn-secondary btn-sm" disabled>
                   Solo los inversionistas pueden invertir
                 </button>
-              </ng-template>
 
+                <!-- Caso 3: sí es inversionista, pero la campaña está inactiva -->
+                <button
+                  *ngIf="isInvestor && !isCampaignActive"
+                  class="btn btn-secondary btn-sm"
+                  disabled
+                >
+                  No se puede invertir en campañas inactivas
+                </button>
+              </ng-template>
             </ng-template>
           </div>
-
         </div>
       </div>
-
     </div>
   </div>
-
 </div>
 
 <!-- Loading -->
 <div *ngIf="loading" class="container my-4">
-  <div class="alert alert-info text-center">
-    Cargando información de la campaña...
-  </div>
+  <div class="alert alert-info text-center">Cargando información de la campaña...</div>
 </div>

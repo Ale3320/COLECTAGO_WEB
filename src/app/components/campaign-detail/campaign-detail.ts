@@ -57,9 +57,25 @@ export class CampaignDetailComponent implements OnInit {
     });
   }
 
+  get canSeePdf(): boolean {
+    return this.role === 'administrador';
+  }
+
   // URL del PDF
   getPdfUrl(): string | null {
     if (!this.campaign?._id) return null;
     return `http://localhost:3000/api/campaigns/seePDFCampaign/${this.campaign._id}/pdf`;
+  }
+
+  get isInvestor(): boolean {
+    return this.role === 'inversionista';
+  }
+
+  get isCampaignActive(): boolean {
+    return this.campaign?.activeOrInactive === 'activo';
+  }
+
+  get canInvest(): boolean {
+    return this.isLoggedIn && this.isInvestor && this.isCampaignActive;
   }
 }

@@ -1,0 +1,130 @@
+<div class="container my-4">
+
+  <h2 class="mb-3">Editar campaña</h2>
+
+  <div *ngIf="loading">Cargando información de la campaña...</div>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <div *ngIf="success" class="alert alert-success">{{ success }}</div>
+
+  <form *ngIf="!loading && campaignForm" [formGroup]="campaignForm" (ngSubmit)="onSubmit()">
+
+    <!-- Nombre campaña -->
+    <div class="mb-3">
+      <label for="campaignName" class="form-label">Nombre de la campaña</label>
+      <input
+        type="text"
+        id="campaignName"
+        class="form-control"
+        formControlName="campaignName"
+        [class.is-invalid]="campaignName?.invalid && (campaignName?.touched || campaignName?.dirty)">
+
+      <div class="invalid-feedback" *ngIf="campaignName?.errors?.['required']">
+        El nombre de la campaña es obligatorio.
+      </div>
+      <div class="invalid-feedback" *ngIf="campaignName?.errors?.['minlength']">
+        Debe tener al menos 3 caracteres.
+      </div>
+    </div>
+
+    <!-- NIT -->
+    <div class="mb-3">
+      <label for="NIT" class="form-label">NIT de la empresa</label>
+      <input
+        type="text"
+        id="NIT"
+        class="form-control"
+        formControlName="NIT"
+        [class.is-invalid]="NITCtrl?.invalid && (NITCtrl?.touched || NITCtrl?.dirty)">
+
+      <div class="invalid-feedback" *ngIf="NITCtrl?.errors?.['required']">
+        El NIT es obligatorio.
+      </div>
+    </div>
+
+    <!-- Objetivos -->
+    <div class="mb-3">
+      <label for="campaignObjectives" class="form-label">Objetivos de la campaña</label>
+      <textarea
+        id="campaignObjectives"
+        rows="3"
+        class="form-control"
+        formControlName="campaignObjectives"
+        [class.is-invalid]="campaignObjectives?.invalid && (campaignObjectives?.touched || campaignObjectives?.dirty)"></textarea>
+
+      <div class="invalid-feedback" *ngIf="campaignObjectives?.errors?.['required']">
+        Los objetivos son obligatorios.
+      </div>
+      <div class="invalid-feedback" *ngIf="campaignObjectives?.errors?.['minlength']">
+        Describe un poco más los objetivos.
+      </div>
+    </div>
+
+    <!-- Producto / servicio -->
+    <div class="mb-3">
+      <label for="serviceOrProduct" class="form-label">Producto o servicio</label>
+      <textarea
+        id="serviceOrProduct"
+        rows="2"
+        class="form-control"
+        formControlName="serviceOrProduct"
+        [class.is-invalid]="serviceOrProduct?.invalid && (serviceOrProduct?.touched || serviceOrProduct?.dirty)"></textarea>
+
+      <div class="invalid-feedback" *ngIf="serviceOrProduct?.errors?.['required']">
+        Este campo es obligatorio.
+      </div>
+      <div class="invalid-feedback" *ngIf="serviceOrProduct?.errors?.['minlength']">
+        Agrega un poco más de detalle.
+      </div>
+    </div>
+
+    <!-- Estado activo/inactivo -->
+    <div class="mb-3">
+      <label for="activeOrInactive" class="form-label">Estado de la campaña</label>
+      <select
+        id="activeOrInactive"
+        class="form-select"
+        formControlName="activeOrInactive"
+        [class.is-invalid]="activeOrInactive?.invalid && (activeOrInactive?.touched || activeOrInactive?.dirty)">
+        <option value="activo">Activo</option>
+        <option value="inactivo">Inactivo</option>
+      </select>
+
+      <div class="invalid-feedback" *ngIf="activeOrInactive?.errors?.['required']">
+        Debes seleccionar un estado.
+      </div>
+    </div>
+
+    <!-- PDF opcional -->
+    <div class="mb-3">
+      <label for="pdf" class="form-label">Actualizar acta de constitución (PDF, opcional)</label>
+      <input
+        type="file"
+        id="pdf"
+        class="form-control"
+        (change)="onFileSelected($event)"
+        accept="application/pdf">
+      <div class="form-text">
+        Si no seleccionas un archivo, se mantiene el PDF actual.
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="d-flex justify-content-between mt-4">
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        [routerLink]="['/admin']">
+        Cancelar
+      </button>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="saving">
+        <span *ngIf="!saving">Guardar cambios</span>
+        <span *ngIf="saving">Guardando...</span>
+      </button>
+    </div>
+  </form>
+</div>
