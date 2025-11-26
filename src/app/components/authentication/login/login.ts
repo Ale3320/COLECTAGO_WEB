@@ -7,7 +7,6 @@ import { Jwtres } from '../../../models/jwtres';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.html',
   styleUrl: './login.css'
@@ -27,11 +26,8 @@ export class LoginComponent {
   ) {}
 
   ngOnInit(): void {
-    // ?fromCampaign=ID (cuando viene del botón "Invertir en esta campaña")
-    this.fromCampaignId = this.route.snapshot.queryParamMap.get('fromCampaign');
-
     this.loginForm = this.fb.group({
-      mail: ['', [Validators.required, Validators.email]],   // tu backend usa "mail"
+      mail: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
@@ -46,7 +42,7 @@ export class LoginComponent {
 
     this.loading = true;
 
-    const credentials = this.loginForm.value; // { mail, password }
+    const credentials = this.loginForm.value;
 
     this.authService.login(credentials).subscribe({
       next: (res: Jwtres) => {
@@ -58,11 +54,11 @@ export class LoginComponent {
           return;
         }
 
-        // Si venía desde "Invertir en esta campaña" → regresar al detalle
+        // Si venía desde "Invertir en esta campaña", va a regresar a la campaña
         if (this.fromCampaignId) {
           this.router.navigate(['/campaign', this.fromCampaignId]);
         } else {
-          // Si no, lo mandamos al home (o luego a un dashboard)
+          // Si no, se manda al inicio
           this.router.navigate(['/']);
         }
       },

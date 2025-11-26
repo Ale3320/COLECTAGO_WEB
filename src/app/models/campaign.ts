@@ -1,22 +1,20 @@
 // src/app/models/campaign.ts
 
 export interface ArticlesOfIncorporation {
-  // OJO: depende de cómo tu API devuelva el Buffer.
-  // Si lo manda como objeto { type: 'Buffer', data: number[] }, podríamos tiparlo así:
   data?: {
-    type: string;          // normalmente 'Buffer'
-    data: number[];        // contenido binario
+    type: string; 
+    data: number[];
   } | null;
 
-  contentType: string;      // ej: 'application/pdf'
+  contentType: string;
   filename: string;
   size: number;
-  uploadedAt: string;       // viene como string ISO; se puede convertir a Date si quieres
+  uploadedAt: string;
 }
 
 export interface Campaign {
-  _id?: string;             // id de Mongo que te llega en las respuestas
-  owner: string;            // ObjectId del usuario (puede ser string y ya)
+  _id?: string;
+  owner: string;
   campaignName: string;
   NIT: string;
   articlesOfIncorporation: ArticlesOfIncorporation;
@@ -25,6 +23,6 @@ export interface Campaign {
   collected: number;
   activeOrInactive: 'activo' | 'inactivo' | string;
 
-  createdAt?: string;       // por timestamps: true
+  createdAt?: string;
   updatedAt?: string;
 }

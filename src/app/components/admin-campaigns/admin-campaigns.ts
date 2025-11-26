@@ -3,11 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CampaignService } from '../../services/campaign';
 import { Authentication } from '../../services/authentication';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-campaigns',
-  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './admin-campaigns.html',
   styleUrl: './admin-campaigns.css'
@@ -23,8 +21,7 @@ export class AdminCampaignsComponent {
 
   constructor(
     private campaignService: CampaignService,
-    private auth: Authentication,
-    private http: HttpClient
+    private auth: Authentication
   ) {}
 
   ngOnInit(): void {
@@ -55,30 +52,12 @@ export class AdminCampaignsComponent {
       }
     });
   }
+  
   openPdf(campaignId: string): void {
     if (!campaignId) return;
 
     const url = `http://localhost:3000/api/campaigns/seePDFCampaign/${campaignId}/pdf`;
     window.open(url, '_blank');
-  }
-
-  approve(id: string) {
-    const adminId = this.currentUser._id;
-
-    this.http.put(
-      `http://localhost:3000/api/campaigns/updateCampaign/${id}?adminId=${adminId}`,
-      { activeOrInactive: 'activo' }
-    ).subscribe({
-      next: (res: any) => {
-        if (res.ok) {
-          this.success = 'Campaña aprobada.';
-          this.loadCampaigns();
-        } else {
-          this.error = res.message;
-        }
-      },
-      error: () => this.error = 'Error al aprobar campaña.'
-    });
   }
 
   delete(id: string) {

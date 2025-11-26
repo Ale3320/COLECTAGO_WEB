@@ -8,7 +8,6 @@ import { Campaign } from '../../models/campaign';
 
 @Component({
   selector: 'app-admin-campaign-edit',
-  standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './admin-campaign-edit.html',
   styleUrl: './admin-campaign-edit.css'
