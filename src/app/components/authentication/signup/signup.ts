@@ -7,7 +7,6 @@ import { Jwtres } from '../../../models/jwtres';
 
 @Component({
   selector: 'app-signup',
-  standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './signup.html',
   styleUrl: './signup.css'
@@ -103,7 +102,7 @@ export class SignupComponent {
         this.loading = false;
 
         if (res?.ok === false) {
-          this.error = res.message || 'No fue posible crear la cuenta.';
+          this.error = res.message;
           return;
         }
 
