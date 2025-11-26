@@ -50,9 +50,9 @@ export class LoginComponent {
       next: (res: Jwtres) => {
         this.loading = false;
 
-        const token = res?.token ?? res?.accessToken;
+        const token = res.token;
         if (!token) {
-          this.error = res?.message || 'Credenciales inválidas.';
+          this.error = res.message;
           return;
         }
 
