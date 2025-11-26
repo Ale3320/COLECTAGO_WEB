@@ -26,8 +26,7 @@ export class Authentication {
             return;
           }
 
-          // Soporta tanto 'token' como 'accessToken'
-          const token = res.token ?? res.accessToken ?? null;
+          const token = res.token;
 
           if (!token) {
             console.error('No se recibió token en la respuesta');
@@ -35,7 +34,7 @@ export class Authentication {
           }
 
           // Guardar token y usuario
-          this.saveToken(token, String(res.expiresIn ?? ''));
+          this.saveToken(token, String(res.expiresIn));
           if (res.user) {
             localStorage.setItem('USER', JSON.stringify(res.user));
           }
