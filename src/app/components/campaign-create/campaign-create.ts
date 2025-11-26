@@ -8,7 +8,6 @@ import { User } from '../../models/user';
 
 @Component({
   selector: 'app-campaign-create',
-  standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './campaign-create.html',
   styleUrl: './campaign-create.css'
@@ -99,14 +98,14 @@ export class CampaignCreateComponent {
     this.campaignService.create(formData).subscribe({
       next: (res) => {
         this.loading = false;
-        if (res?.ok) {
+        if (res.ok) {
           this.success = 'Campaña creada correctamente.';
           // después de un momento, ir al listado o al detalle
           setTimeout(() => {
             this.router.navigate(['/campaign']);
           }, 1500);
         } else {
-          this.error = res?.message || 'No fue posible crear la campaña.';
+          this.error = res.message;
         }
       },
       error: (err) => {
