@@ -26,6 +26,8 @@ export class LoginComponent {
   ) {}
 
   ngOnInit(): void {
+    this.fromCampaignId = this.route.snapshot.queryParamMap.get('fromCampaign');
+
     this.loginForm = this.fb.group({
       mail: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
