@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -13,7 +13,7 @@ import { Campaign } from '../../models/campaign';
   templateUrl: './admin-campaign-edit.html',
   styleUrl: './admin-campaign-edit.css'
 })
-export class AdminCampaignEditComponent implements OnInit {
+export class AdminCampaignEditComponent {
 
   campaignForm!: FormGroup;
   loading = true;

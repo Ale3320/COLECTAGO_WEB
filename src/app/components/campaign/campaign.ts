@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CampaignService } from '../../services/campaign';
 import { Campaign } from '../../models/campaign';
@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './campaign.html',
   styleUrl: './campaign.css'
 })
-export class CampaignComponent implements OnInit {
+export class CampaignComponent {
 
   campaigns: Campaign[] = [];
   loading = false;

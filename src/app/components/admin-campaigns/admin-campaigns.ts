@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CampaignService } from '../../services/campaign';
@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './admin-campaigns.html',
   styleUrl: './admin-campaigns.css'
 })
-export class AdminCampaignsComponent implements OnInit {
+export class AdminCampaignsComponent {
 
   campaigns: any[] = [];
   currentUser: any = null;

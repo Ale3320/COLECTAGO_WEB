@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -12,7 +12,7 @@ import { Jwtres } from '../../../models/jwtres';
   templateUrl: './signup.html',
   styleUrl: './signup.css'
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent {
 
   signupForm!: FormGroup;
   loading = false;

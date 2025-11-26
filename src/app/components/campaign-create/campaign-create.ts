@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -13,7 +13,7 @@ import { User } from '../../models/user';
   templateUrl: './campaign-create.html',
   styleUrl: './campaign-create.css'
 })
-export class CampaignCreateComponent implements OnInit {
+export class CampaignCreateComponent {
 
   campaignForm!: FormGroup;
   loading = false;

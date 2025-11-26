@@ -41,14 +41,6 @@
             Editar
           </a>
 
-          <button
-            class="btn btn-success btn-sm me-2"
-            *ngIf="c.activeOrInactive === 'inactivo'"
-            (click)="approve(c._id)"
-          >
-            Aprobar rápido
-          </button>
-
           <button class="btn btn-danger btn-sm" (click)="delete(c._id)">Eliminar</button>
         </td>
       </tr>

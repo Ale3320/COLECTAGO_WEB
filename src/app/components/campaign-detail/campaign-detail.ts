@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CampaignService } from '../../services/campaign';
@@ -12,7 +12,7 @@ import { Authentication } from '../../services/authentication';
   templateUrl: './campaign-detail.html',
   styleUrl: './campaign-detail.css'
 })
-export class CampaignDetailComponent implements OnInit {
+export class CampaignDetailComponent {
 
   campaign: Campaign | null = null;
   loading = true;
