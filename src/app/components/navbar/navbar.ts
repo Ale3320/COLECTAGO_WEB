@@ -8,7 +8,6 @@ import { User } from '../../models/user';
 
 @Component({
   selector: 'app-navbar',
-  standalone: true,//El componente funciona solo
   imports: [CommonModule, RouterModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'

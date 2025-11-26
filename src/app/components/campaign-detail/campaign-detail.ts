@@ -7,7 +7,6 @@ import { Authentication } from '../../services/authentication';
 
 @Component({
   selector: 'app-campaign-detail',
-  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './campaign-detail.html',
   styleUrl: './campaign-detail.css'

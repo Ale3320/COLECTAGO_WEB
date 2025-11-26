@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-campaign',
-  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './campaign.html',
   styleUrl: './campaign.css'
