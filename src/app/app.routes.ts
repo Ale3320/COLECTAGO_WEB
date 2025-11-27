@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home';
 import { CampaignComponent } from './components/campaign/campaign';
 import { CampaignDetailComponent } from './components/campaign-detail/campaign-detail';
 import { CampaignCreateComponent } from './components/campaign-create/campaign-create';
+import { MyCampaigns } from './components/my-campaigns/my-campaigns';
 import { LoginComponent } from './components/authentication/login/login';
 import { SignupComponent } from './components/authentication/signup/signup';
 import { AdminCampaignsComponent } from './components/admin-campaigns/admin-campaigns';
@@ -14,6 +15,7 @@ export const routes: Routes = [
     {path: 'campaigns', component: CampaignComponent},
     {path: 'campaign/:id', component: CampaignDetailComponent},
     {path: 'campaigns/create', component: CampaignCreateComponent},
+    {path: 'my-campaigns', component: MyCampaigns},
     {path: 'admin', component: AdminCampaignsComponent},
     {path: 'admin/campaign/:id', component: AdminCampaignEditComponent},
     {path: 'login', component: LoginComponent},

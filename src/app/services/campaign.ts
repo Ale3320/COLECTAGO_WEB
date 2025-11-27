@@ -23,6 +23,15 @@ export class CampaignService {
       .pipe(map(res => res.campaigns));
   }
 
+  // GET /api/campaigns/seeCampaignsByOwner/:ownerId
+getByOwner(ownerId: string): Observable<Campaign[]> {
+  return this.http
+    .get<{ ok: boolean; total: number; campaigns: Campaign[] }>(
+      `${this.apiUri}/seeCampaignsByOwner/${ownerId}`
+    )
+    .pipe(map(res => res.campaigns));
+}
+
   // Busca una campaña por ID (filtrando sobre getAll)
   getById(id: string): Observable<Campaign | null> {
     return this.getAll().pipe(
