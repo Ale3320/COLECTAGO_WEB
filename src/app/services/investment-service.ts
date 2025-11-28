@@ -16,10 +16,12 @@ export class InvestmentService {
 
 
   newInvestment(data: any): Observable<any> {
-  return this.http.post(`${this.apiUri}/invest`, data);
-}
+    return this.http.post(`${this.apiUri}/invest`, data);
+  }
 
-
+  getInvestmentsByInvestor(investorId: string): Observable<any> {
+    return this.http.get(`${this.apiUri}/investor/${investorId}`);
+  }
 
 }
 

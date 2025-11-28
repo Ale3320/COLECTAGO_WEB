@@ -6,6 +6,7 @@ import { CampaignDetailComponent } from './components/campaign-detail/campaign-d
 import { CampaignCreateComponent } from './components/campaign-create/campaign-create';
 import { MyCampaigns } from './components/my-campaigns/my-campaigns';
 import { InvestmentComponent } from './components/investment/investment';
+import { MyInvestmentsComponent } from './components/my-investments/my-investments';
 import { LoginComponent } from './components/authentication/login/login';
 import { SignupComponent } from './components/authentication/signup/signup';
 import { AdminCampaignsComponent } from './components/admin-campaigns/admin-campaigns';
@@ -19,7 +20,7 @@ export const routes: Routes = [
     { path: 'my-campaigns', component: MyCampaigns },
     { path: 'investment/:id', component: InvestmentComponent }, // <-- nueva
     { path: 'invest/:id', component: InvestmentComponent },     // opcional: alias
-    { path: 'investments', component: InvestmentComponent },    // si la necesitas
+    { path: 'my-investments', component: MyInvestmentsComponent },
     { path: 'admin', component: AdminCampaignsComponent },
     { path: 'admin/campaign/:id', component: AdminCampaignEditComponent },
     { path: 'login', component: LoginComponent },

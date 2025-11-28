@@ -37,6 +37,13 @@
           </a>
         </li>
 
+        <!-- Solo Inversionista -->
+        <li class="nav-item" *ngIf="role === 'inversionista'">
+          <a class="nav-link" routerLink="/my-investments">
+            Mis inversiones
+          </a>
+        </li>
+
         <!-- Solo admin -->
         <li class="nav-item" *ngIf="role === 'administrador'">
           <a class="nav-link" routerLink="/admin">
