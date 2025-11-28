@@ -40,7 +40,7 @@ export class CampaignComponent {
   }
 
   getProgress(c: Campaign): number {
-    const goal = 1_000_000; // meta provisional, solo para mostrar la barra
+    const goal = 10_000_000; // meta provisional, solo para mostrar la barra
     if (!goal) return 0;
 
     const value = (c.collected / goal) * 100;
