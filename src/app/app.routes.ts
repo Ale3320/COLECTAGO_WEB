@@ -11,6 +11,7 @@ import { LoginComponent } from './components/authentication/login/login';
 import { SignupComponent } from './components/authentication/signup/signup';
 import { AdminCampaignsComponent } from './components/admin-campaigns/admin-campaigns';
 import { AdminCampaignEditComponent } from './components/admin-campaign-edit/admin-campaign-edit';
+import { AdminInvestmentsComponent } from './components/admin-investments/admin-investments';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -18,8 +19,9 @@ export const routes: Routes = [
     { path: 'campaign/:id', component: CampaignDetailComponent },
     { path: 'campaigns/create', component: CampaignCreateComponent },
     { path: 'my-campaigns', component: MyCampaigns },
-    { path: 'investment/:id', component: InvestmentComponent }, // <-- nueva
-    { path: 'invest/:id', component: InvestmentComponent },     // opcional: alias
+    { path: 'investment/:id', component: InvestmentComponent }, 
+    { path: 'invest/:id', component: InvestmentComponent },     
+    { path: 'admin/investments', component: AdminInvestmentsComponent },
     { path: 'my-investments', component: MyInvestmentsComponent },
     { path: 'admin', component: AdminCampaignsComponent },
     { path: 'admin/campaign/:id', component: AdminCampaignEditComponent },

@@ -46,11 +46,15 @@
 
         <!-- Solo admin -->
         <li class="nav-item" *ngIf="role === 'administrador'">
+          <a class="nav-link" routerLink="/admin/investments">
+            Inversiones
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="role === 'administrador'">
           <a class="nav-link" routerLink="/admin">
             Panel administrador
           </a>
         </li>
-
       </ul>
 
       <!-- Zona derecha -->

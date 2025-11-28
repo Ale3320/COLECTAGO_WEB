@@ -75,10 +75,8 @@ export class InvestmentComponent {
 
         this.successMsg = 'Inversión creada correctamente.';
 
-        // Limpia el formulario
         this.investmentForm.reset();
 
-        // Redirige luego de 1.2 segundos
         setTimeout(() => {
           this.router.navigate(['/campaign', this.campaignId]);
         }, 1200);
@@ -90,5 +88,6 @@ export class InvestmentComponent {
     });
 
   }
+  
 
 }

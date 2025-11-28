@@ -1,0 +1,76 @@
+<div class="container my-4">
+
+  <h2 class="text-center fw-semibold mb-4">Todas las inversiones</h2>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary"></div>
+    <p class="mt-2">Cargando inversiones...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="errorMsg && !loading" class="alert alert-danger text-center">
+    {{ errorMsg }}
+  </div>
+
+  <!-- Sin datos -->
+  <div *ngIf="!loading && investments.length === 0 && !errorMsg"
+       class="alert alert-info text-center">
+    No hay inversiones registradas.
+  </div>
+
+  <!-- Tabla -->
+  <div *ngIf="!loading && investments.length > 0">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped align-middle">
+
+        <thead class="table-dark">
+          <tr>
+            <th>Campaña</th>
+            <th>Inversionista</th>
+            <th>Monto (COP)</th>
+            <th>Estado</th>
+            <th>Fecha</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let i of investments">
+
+            <td>{{ i.campaign?.campaignName }}</td>
+
+            <td>{{ i.investor?.userName }}<br>
+                <small>{{ i.investor?.mail }}</small>
+            </td>
+
+            <td class="fw-semibold">
+              {{ i.amount | currency:'COP':'symbol-narrow':'1.0-0' }}
+            </td>
+
+            <td>
+              <span class="badge bg-primary" *ngIf="i.status === 'confirmado'">Confirmado</span>
+              <span class="badge bg-warning text-dark" *ngIf="i.status === 'pagoPendiente'">Pendiente</span>
+              <span class="badge bg-danger" *ngIf="i.status === 'fallido'">Fallido</span>
+              <span class="badge bg-secondary" *ngIf="i.status === 'iniciado'">Iniciado</span>
+              <span class="badge bg-info text-dark" *ngIf="i.status === 'reembolsado'">Reembolsado</span>
+            </td>
+
+            <td>{{ i.createdAt | date:'short' }}</td>
+
+            <td>
+              <a
+                class="btn btn-sm btn-outline-primary"
+                [routerLink]="['/campaign', i.campaign?._id]">
+                Ver campaña →
+              </a>
+            </td>
+
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+
+</div>

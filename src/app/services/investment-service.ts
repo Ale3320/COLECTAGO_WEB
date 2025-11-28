@@ -23,5 +23,10 @@ export class InvestmentService {
     return this.http.get(`${this.apiUri}/investor/${investorId}`);
   }
 
+  getAllInvestments(): Observable<any> {
+    return this.http.get(`${this.apiUri}/all`);
+  }
+
+
 }
 
