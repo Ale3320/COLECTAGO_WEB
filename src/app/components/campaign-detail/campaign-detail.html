@@ -41,13 +41,10 @@
             </div>
             <div class="col-md-6 mb-2 text-md-end">
               <h6 class="text-muted mb-1">Estado</h6>
-              <span
-                class="badge px-3 py-2 text-uppercase"
-                [ngClass]="{
+              <span class="badge px-3 py-2 text-uppercase" [ngClass]="{
                   'bg-success': campaign.activeOrInactive === 'activo',
                   'bg-secondary': campaign.activeOrInactive === 'inactivo'
-                }"
-              >
+                }">
                 {{ campaign.activeOrInactive }}
               </span>
             </div>
@@ -58,13 +55,8 @@
             <h6 class="text-muted mb-2">Documento de constitución</h6>
 
             <!-- Si es ADMIN, mostrar botón real -->
-            <a
-              *ngIf="canSeePdf && getPdfUrl()"
-              class="btn btn-outline-secondary btn-sm"
-              [href]="getPdfUrl()"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a *ngIf="canSeePdf && getPdfUrl()" class="btn btn-outline-secondary btn-sm" [href]="getPdfUrl()"
+              target="_blank" rel="noopener noreferrer">
               Ver acta de constitución (PDF)
             </a>
 
@@ -84,11 +76,7 @@
             </button>
             <!-- Si no está logueado: botón que lo manda a login -->
             <ng-container *ngIf="!isLoggedIn; else loggedInvestBlock">
-              <button
-                class="btn btn-primary btn-sm"
-                routerLink="/login"
-                [queryParams]="{ fromCampaign: campaign._id }"
-              >
+              <button class="btn btn-primary btn-sm" routerLink="/login" [queryParams]="{ fromCampaign: campaign._id }">
                 Inicia sesión para invertir
               </button>
             </ng-container>
@@ -96,9 +84,11 @@
             <!-- Si está logueado -->
             <ng-template #loggedInvestBlock>
               <!-- Caso 1: puede invertir (inversionista y con campaña activa) -->
-              <button *ngIf="canInvest; else cannotInvestBlock" class="btn btn-primary btn-sm">
+              <button *ngIf="canInvest; else cannotInvestBlock" class="btn btn-primary btn-sm"
+                [routerLink]="['/investment', campaign._id]">
                 Invertir en esta campaña
               </button>
+
 
               <!-- Caso 2 y 3: no puede invertir, pero por razones distintas -->
               <ng-template #cannotInvestBlock>
@@ -108,11 +98,7 @@
                 </button>
 
                 <!-- Caso 3: sí es inversionista, pero la campaña está inactiva -->
-                <button
-                  *ngIf="isInvestor && !isCampaignActive"
-                  class="btn btn-secondary btn-sm"
-                  disabled
-                >
+                <button *ngIf="isInvestor && !isCampaignActive" class="btn btn-secondary btn-sm" disabled>
                   No se puede invertir en campañas inactivas
                 </button>
               </ng-template>

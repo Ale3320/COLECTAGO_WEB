@@ -30,7 +30,7 @@ export class MyCampaigns {
     this.error = null;
 
     const user = this.authService.getUser();
-    const ownerId = user?._id; // o user?._id según tu backend
+    const ownerId = user?._id;
 
     if (!ownerId) {
       this.error = 'No se encontró el usuario autenticado';
